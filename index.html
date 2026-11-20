@@ -110,6 +110,13 @@ footer .gm-mark{width:44px;height:44px;margin:0 auto 12px}
 .card li::before{content:"";width:7px;height:7px;border-radius:50%;background:linear-gradient(90deg,var(--primary),var(--accent));flex-shrink:0}
 
 /* Skills groups */
+.skill-bars{max-width:760px;margin:0 auto 44px}
+.skill-bar{margin-bottom:18px}
+.sb-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px;font-size:.92rem;font-weight:600}
+.sb-top b{color:var(--primary);font-size:.85rem}
+.bar{height:8px;border-radius:99px;background:var(--border);overflow:hidden}
+.fill{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--primary),var(--secondary),var(--accent));width:0;transition:width 1.3s cubic-bezier(.22,1,.36,1)}
+.visible .fill{width:var(--w)}
 .skill-groups{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
 .skill-group{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:30px 26px;box-shadow:var(--shadow)}
 .skill-group h3{font-size:1.05rem;font-weight:600;margin-bottom:18px;display:flex;align-items:center;gap:10px}
@@ -298,6 +305,12 @@ footer .f-links a:hover{color:var(--primary)}
       <h2 data-en="Professional Skills" data-ar="المهارات المهنية">Professional Skills</h2>
       <p data-en="What I bring to every project" data-ar="ما أقدمه في كل مشروع">What I bring to every project</p>
     </div>
+    <div class="skill-bars reveal">
+      <div class="skill-bar" style="--w:95%"><div class="sb-top"><span data-en="IT Support &amp; Troubleshooting" data-ar="الدعم الفني وحل المشكلات">IT Support &amp; Troubleshooting</span><b>95%</b></div><div class="bar"><div class="fill"></div></div></div>
+      <div class="skill-bar" style="--w:92%"><div class="sb-top"><span data-en="Graphic Design" data-ar="تصميم الجرافيك">Graphic Design</span><b>92%</b></div><div class="bar"><div class="fill"></div></div></div>
+      <div class="skill-bar" style="--w:96%"><div class="sb-top"><span data-en="Data Entry &amp; Documentation" data-ar="إدخال البيانات والتوثيق">Data Entry &amp; Documentation</span><b>96%</b></div><div class="bar"><div class="fill"></div></div></div>
+      <div class="skill-bar" style="--w:90%"><div class="sb-top"><span data-en="Microsoft Office (Word, Excel, PowerPoint)" data-ar="مايكروسوفت أوفيس (وورد، إكسل، باوربوينت)">Microsoft Office (Word, Excel, PowerPoint)</span><b>90%</b></div><div class="bar"><div class="fill"></div></div></div>
+    </div>
     <div class="skill-groups">
       <div class="skill-group reveal">
         <h3><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg><span data-en="Technical Skills" data-ar="المهارات التقنية">Technical Skills</span></h3>
@@ -348,17 +361,17 @@ footer .f-links a:hover{color:var(--primary)}
       <div class="t-item reveal">
         <span class="t-tag" data-en="Present" data-ar="حالياً">Present</span>
         <h3 data-en="IT Specialist" data-ar="أخصائي تكنولوجيا معلومات">IT Specialist</h3>
-        <p data-en="Providing smart tech solutions, technical support, and system optimization for clients and businesses." data-ar="تقديم حلول تقنية ذكية ودعم فني وتحسين الأنظمة للعملاء والشركات.">Providing smart tech solutions, technical support, and system optimization for clients and businesses.</p>
+        <p data-en="Delivering end-to-end IT solutions for clients and businesses: technical support, system setup and optimization, website building, and network configuration." data-ar="تقديم حلول تقنية متكاملة للعملاء والشركات: دعم فني، إعداد الأنظمة وتحسينها، إنشاء المواقع، وتكوين الشبكات.">Delivering end-to-end IT solutions for clients and businesses: technical support, system setup and optimization, website building, and network configuration.</p>
       </div>
       <div class="t-item reveal">
         <span class="t-tag" data-en="Present" data-ar="حالياً">Present</span>
         <h3 data-en="Graphic Designer" data-ar="مصمم جرافيك">Graphic Designer</h3>
-        <p data-en="Designing clean, professional visuals for brands, social media, and print - from logos to full visual identities." data-ar="تصميم مواد بصرية نظيفة واحترافية للعلامات التجارية ووسائل التواصل والمطبوعات - من الشعارات إلى الهويات البصرية الكاملة.">Designing clean, professional visuals for brands, social media, and print - from logos to full visual identities.</p>
+        <p data-en="Crafting clean, professional visual identities for brands, social media, and print - from single logos to complete brand systems that communicate clearly." data-ar="تصميم هويات بصرية احترافية ونظيفة للعلامات التجارية ووسائل التواصل والمطبوعات - من الشعار الواحد إلى أنظمة الهوية الكاملة التي توصل الرسالة بوضوح.">Crafting clean, professional visual identities for brands, social media, and print - from single logos to complete brand systems that communicate clearly.</p>
       </div>
       <div class="t-item reveal">
         <span class="t-tag" data-en="Present" data-ar="حالياً">Present</span>
         <h3 data-en="Data Entry Specialist" data-ar="أخصائي إدخال بيانات">Data Entry Specialist</h3>
-        <p data-en="Delivering fast, accurate, and well-organized data entry, reports, and spreadsheets with full attention to detail." data-ar="تنفيذ إدخال بيانات سريع ودقيق ومنظم، وتقارير وجداول بيانات باهتمام كامل بالتفاصيل.">Delivering fast, accurate, and well-organized data entry, reports, and spreadsheets with full attention to detail.</p>
+        <p data-en="Delivering fast, accurate, and well-organized data entry, digital documentation, reports, and spreadsheets - every detail checked, every record in its place." data-ar="تنفيذ إدخال بيانات سريع ودقيق ومنظم، وتوثيق رقمي وتقارير وجداول بيانات - كل تفصيلة مراجعة وكل سجل في مكانه.">Delivering fast, accurate, and well-organized data entry, digital documentation, reports, and spreadsheets - every detail checked, every record in its place.</p>
       </div>
       <div class="t-item reveal">
         <span class="t-tag" data-en="Class of 2024" data-ar="دفعة 2024">Class of 2024</span>
