@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://gergs-magdy.github.io/sitemap.xml
