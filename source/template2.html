@@ -229,9 +229,29 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
 .term-bar i{width:10px;height:10px;border-radius:50%;background:#f87171}
 .term-bar i:nth-child(2){background:#fbbf24}
 .term-bar i:nth-child(3){background:#34d399}
-.term-body{padding:14px 16px;color:#7dd3fc;min-height:112px;line-height:1.7}
+.term-body{padding:14px 16px;color:#7dd3fc;min-height:112px;max-height:220px;overflow-y:auto;line-height:1.7}
 .term-body .p{color:#c4b5fd}
 .term-cursor{display:inline-block;width:8px;height:14px;background:#7dd3fc;vertical-align:-2px;animation:blink 1s steps(1) infinite}
+.term-input-row{display:none;align-items:center;gap:8px;margin-top:6px;color:#c4b5fd}
+.term-input-row.on{display:flex}
+.term-input-row input{flex:1;background:transparent;border:0;outline:0;color:#e2e8f0;font:inherit;font-family:ui-monospace,monospace;caret-color:#7dd3fc}
+.term-input-row input::placeholder{color:#475569}
+.term{cursor:text}
+.stats-strip{padding:26px 0}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px 12px;text-align:center;box-shadow:var(--shadow);transition:transform .3s,box-shadow .3s}
+.stat:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(37,99,235,.15)}
+.stat-num{display:block;font-size:32px;font-weight:800;background:linear-gradient(135deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.stat-label{font-size:13px;color:var(--text-light);margin-top:4px;display:block}
+.code-window{background:#0f172a;border-radius:14px;overflow:hidden;box-shadow:0 20px 50px rgba(15,23,42,.35);max-width:720px;margin:0 auto}
+.cw-bar{display:flex;gap:6px;align-items:center;padding:9px 12px;background:#111c33;border-bottom:1px solid #1e2b4a}
+.cw-bar i{width:10px;height:10px;border-radius:50%;background:#f87171}
+.cw-bar i:nth-child(2){background:#fbbf24}
+.cw-bar i:nth-child(3){background:#34d399}
+.cw-tab{margin-inline-start:10px;font-size:12px;color:#94a3b8;background:#1e293b;padding:3px 12px;border-radius:6px 6px 0 0;font-family:ui-monospace,monospace}
+.cw-body{margin:0;padding:18px 20px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px;line-height:1.8;overflow-x:auto;color:#e2e8f0}
+.cw-body .k{color:#c084fc}.cw-body .v{color:#7dd3fc}.cw-body .s{color:#86efac}.cw-body .n{color:#fbbf24}.cw-body .c{color:#475569;font-style:italic}.cw-body .p{color:#94a3b8}
+@media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}.stat-num{font-size:26px}.cw-body{font-size:12px}}
 .card::before,.sk::before{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(220px circle at var(--mx,50%) var(--my,50%),rgba(124,58,237,.14),transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none}
 .card:hover::before,.sk:hover::before{opacity:1}
 .sk{position:relative;overflow:hidden;animation:floaty 5s ease-in-out infinite}
@@ -268,6 +288,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
     <a href="#home" class="logo"><svg class="gm-mark" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="gmg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563eb"/><stop offset=".5" stop-color="#7c3aed"/><stop offset="1" stop-color="#06b6d4"/></linearGradient><linearGradient id="gmbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0f172a"/><stop offset="1" stop-color="#1e293b"/></linearGradient></defs><g transform="translate(-6,4) scale(1.32)" fill="none" stroke="url(#gmg)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M27 14 L23.5 10.5 H14.5 L11 14 V30 L14.5 33.5 H23.5 L27 30 V25.5 H20"/><path d="M33 33.5 V13 L41 22 L49 13 V33.5"/><path d="M27 14 L33 8 H38"/></g><g transform="translate(-6,4) scale(1.32)" fill="url(#gmg)"><circle cx="38" cy="8" r="2.4"/><circle cx="20" cy="25.5" r="2.4"/><circle cx="33" cy="33.5" r="2.4"/><circle cx="49" cy="33.5" r="2.4"/></g></svg><span>Gergs Magdy</span></a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#home" data-en="Home" data-ar="الرئيسية">Home</a></li>
+      <li><a href="#about" data-en="About" data-ar="عني">About</a></li>
       <li><a href="#services" data-en="Services" data-ar="خدماتي">Services</a></li>
       <li><a href="#skills" data-en="Skills" data-ar="مهاراتي">Skills</a></li>
       <li><a href="#experience" data-en="Experience" data-ar="خبراتي">Experience</a></li>
@@ -318,12 +339,46 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
       </div>
       <div class="term reveal visible" dir="ltr">
         <div class="term-bar"><i></i><i></i><i></i></div>
-        <div class="term-body"><span id="termText"></span><span class="term-cursor"></span></div>
+        <div class="term-body" id="termBody"><span id="termText"></span><div class="term-input-row" id="termRow"><span class="p">$</span><input id="termInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Terminal command input" placeholder="help"><span class="term-cursor"></span></div></div>
       </div>
     </div>
     <div class="hero-photo reveal visible">
       <div class="ring"></div>
       <img src="__PHOTO_B64__" alt="Eng. Gergs Magdy - مهندس جرجس مجدي" width="600" height="750" fetchpriority="high">
+    </div>
+  </div>
+</section>
+
+<section class="stats-strip" id="stats">
+  <div class="container stats reveal">
+    <div class="stat"><span class="stat-num" data-count="6" data-suffix="+">0+</span><span class="stat-label" data-en="Core Services" data-ar="خدمات أساسية">Core Services</span></div>
+    <div class="stat"><span class="stat-num" data-count="20" data-suffix="+">0+</span><span class="stat-label" data-en="Skills &amp; Tools" data-ar="مهارة وأداة">Skills &amp; Tools</span></div>
+    <div class="stat"><span class="stat-num" data-count="100" data-suffix="%">0%</span><span class="stat-label" data-en="Commitment" data-ar="التزام">Commitment</span></div>
+    <div class="stat"><span class="stat-num" data-count="24" data-suffix="/7">0/7</span><span class="stat-label" data-en="Support" data-ar="دعم متواصل">Support</span></div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <div class="sec-head reveal">
+      <h2 data-en="About Me" data-ar="نبذة عني">About Me</h2>
+      <p data-en="The developer behind the profile" data-ar="المطور وراء هذا الملف">The developer behind the profile</p>
+    </div>
+    <div class="code-window reveal" dir="ltr">
+      <div class="cw-bar"><i></i><i></i><i></i><span class="cw-tab">about-gergs.js</span></div>
+      <pre class="cw-body"><code><span class="c">// profile.js - who is Gergs?</span>
+<span class="k">const</span> <span class="v">gergs</span> <span class="p">=</span> {
+  <span class="v">name</span><span class="p">:</span> <span class="s">'Eng. Gergs Magdy'</span><span class="p">,</span>
+  <span class="v">title</span><span class="p">:</span> <span class="s">'IT Specialist &amp; Graphic Designer'</span><span class="p">,</span>
+  <span class="v">education</span><span class="p">:</span> <span class="s">'B.Sc. IT &amp; Education, Zagazig University'</span><span class="p">,</span>
+  <span class="v">skills</span><span class="p">:</span> [<span class="s">'IT Support'</span><span class="p">,</span> <span class="s">'Graphic Design'</span><span class="p">,</span>
+           <span class="s">'Data Entry'</span><span class="p">,</span> <span class="s">'Web &amp; Apps'</span><span class="p">],</span>
+  <span class="v">languages</span><span class="p">:</span> [<span class="s">'HTML'</span><span class="p">,</span> <span class="s">'CSS'</span><span class="p">,</span> <span class="s">'JavaScript'</span><span class="p">,</span> <span class="s">'Java'</span><span class="p">],</span>
+  <span class="v">availableForWork</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+  <span class="v">coffeePerDay</span><span class="p">:</span> <span class="n">Infinity</span>
+<span class="p">};</span>
+
+<span class="k">export default</span> <span class="v">gergs</span><span class="p">;</span></code></pre>
     </div>
   </div>
 </section>
@@ -521,6 +576,7 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
     <svg class="gm-mark" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(-6,4) scale(1.32)" fill="none" stroke="url(#gmg)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M27 14 L23.5 10.5 H14.5 L11 14 V30 L14.5 33.5 H23.5 L27 30 V25.5 H20"/><path d="M33 33.5 V13 L41 22 L49 13 V33.5"/><path d="M27 14 L33 8 H38"/></g><g transform="translate(-6,4) scale(1.32)" fill="url(#gmg)"><circle cx="38" cy="8" r="2.4"/><circle cx="20" cy="25.5" r="2.4"/><circle cx="33" cy="33.5" r="2.4"/><circle cx="49" cy="33.5" r="2.4"/></g></svg>
     <ul class="f-links">
       <li><a href="#home" data-en="Home" data-ar="الرئيسية">Home</a></li>
+      <li><a href="#about" data-en="About" data-ar="عني">About</a></li>
       <li><a href="#services" data-en="Services" data-ar="خدماتي">Services</a></li>
       <li><a href="#skills" data-en="Skills" data-ar="مهاراتي">Skills</a></li>
       <li><a href="#experience" data-en="Experience" data-ar="خبراتي">Experience</a></li>
@@ -781,24 +837,75 @@ document.getElementById('contactForm').addEventListener('submit', function(e){
 document.getElementById('year').textContent = new Date().getFullYear();
 
 
-// Terminal typing card
+// Terminal typing card + interactive commands
+var TERM_CMDS = {
+  en: {
+    help: ['Available commands:',
+'  whoami      - who is Gergs',
+'  skills      - list top skills',
+'  services    - what I offer',
+'  education   - my degree',
+'  contact     - how to reach me',
+'  clear       - clear the terminal'],
+    whoami: ['> Eng. Gergs Magdy - IT Specialist & Graphic Designer'],
+    skills: ['> IT Support - Graphic Design - Data Entry - Web & Apps - HTML/CSS/JS/Java'],
+    services: ['> Tech Support - Web Development - Graphic Design - Data Entry - Office - Networks'],
+    education: ['> B.Sc. IT & Education, Faculty of Specific Education, Zagazig University (2024)'],
+    contact: ['> Use the Contact section below, or tap "WhatsApp Me" in the hero'],
+    unknown: ['> command not found. Type "help" for the list.']
+  },
+  ar: {
+    help: ['الأوامر المتاحة:',
+'  whoami      - من هو جرجس',
+'  skills      - أهم المهارات',
+'  services    - الخدمات',
+'  education   - المؤهل',
+'  contact     - التواصل',
+'  clear       - مسح الشاشة'],
+    whoami: ['> م. جرجس مجدي - أخصائي تكنولوجيا معلومات ومصمم جرافيك'],
+    skills: ['> دعم فني - تصميم جرافيك - إدخال بيانات - مواقع وتطبيقات - HTML/CSS/JS/Java'],
+    services: ['> دعم فني - تطوير مواقع - تصميم جرافيك - إدخال بيانات - أوفيس - شبكات'],
+    education: ['> بكالوريوس تكنولوجيا المعلومات والتعليم - جامعة الزقازيق (2024)'],
+    contact: ['> استخدم قسم "تواصل معي" بالأسفل أو زر "WhatsApp Me" في الأعلى'],
+    unknown: ['> أمر غير معروف. اكتب "help" لعرض القائمة.']
+  }
+};
 (function(){
   var el = document.getElementById('termText');
   if (!el) return;
+  var row = document.getElementById('termRow');
+  var input = document.getElementById('termInput');
   var lines = [
     {t:'$ whoami', c:1},
     {t:'> Eng. Gergs Magdy'},
     {t:'$ skills --list', c:1},
     {t:'> IT Support - Graphic Design - Data Entry - Web & Apps'},
     {t:'$ status', c:1},
-    {t:'> Available for new projects'}
+    {t:'> Available for new projects'},
+    {t:'$ _', c:1}
   ];
   var li = 0, ci = 0, out = '';
+  function done(){
+    if (!row || !input) return;
+    row.classList.add('on');
+    document.getElementById('termBody').addEventListener('click', function(){ input.focus(); });
+    input.addEventListener('keydown', function(e){
+      if (e.key !== 'Enter') return;
+      var cmd = input.value.trim().toLowerCase();
+      input.value = '';
+      if (!cmd) return;
+      if (cmd === 'clear'){ out = ''; el.innerHTML = ''; return; }
+      var dict = TERM_CMDS[LANG] || TERM_CMDS.en;
+      var resp = dict[cmd] || dict.unknown;
+      out += '<span class="p">$ ' + cmd + '</span><br>';
+      resp.forEach(function(l){ out += l + '<br>'; });
+      el.innerHTML = out;
+      var body = document.getElementById('termBody');
+      body.scrollTop = body.scrollHeight;
+    });
+  }
   function tick(){
-    if (li >= lines.length){
-      setTimeout(function(){ out=''; li=0; ci=0; el.innerHTML=''; tick(); }, 4500);
-      return;
-    }
+    if (li >= lines.length){ done(); return; }
     var L = lines[li];
     ci++;
     var part = L.t.slice(0, ci);
@@ -810,6 +917,29 @@ document.getElementById('year').textContent = new Date().getFullYear();
     } else setTimeout(tick, 32);
   }
   tick();
+})();
+
+// Stats count-up
+(function(){
+  var nums = document.querySelectorAll('.stat-num');
+  if (!nums.length) return;
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function run(el){
+    var target = +el.getAttribute('data-count'), suf = el.getAttribute('data-suffix') || '';
+    if (reduced){ el.textContent = target + suf; return; }
+    var start = Date.now();
+    var iv = setInterval(function(){
+      var p = Math.min((Date.now() - start) / 1400, 1);
+      el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))) + suf;
+      if (p >= 1) clearInterval(iv);
+    }, 40);
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (en.isIntersecting){ run(en.target); io.unobserve(en.target); }
+    });
+  }, {threshold: .5});
+  nums.forEach(function(n){ io.observe(n); });
 })();
 
 // Pointer-tracking glow on cards and skill tiles

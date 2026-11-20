@@ -7,6 +7,7 @@
     <a href="#home" class="logo"><svg class="gm-mark" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="gmg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563eb"/><stop offset=".5" stop-color="#7c3aed"/><stop offset="1" stop-color="#06b6d4"/></linearGradient><linearGradient id="gmbg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0f172a"/><stop offset="1" stop-color="#1e293b"/></linearGradient></defs><g transform="translate(-6,4) scale(1.32)" fill="none" stroke="url(#gmg)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M27 14 L23.5 10.5 H14.5 L11 14 V30 L14.5 33.5 H23.5 L27 30 V25.5 H20"/><path d="M33 33.5 V13 L41 22 L49 13 V33.5"/><path d="M27 14 L33 8 H38"/></g><g transform="translate(-6,4) scale(1.32)" fill="url(#gmg)"><circle cx="38" cy="8" r="2.4"/><circle cx="20" cy="25.5" r="2.4"/><circle cx="33" cy="33.5" r="2.4"/><circle cx="49" cy="33.5" r="2.4"/></g></svg><span>Gergs Magdy</span></a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#home" data-en="Home" data-ar="الرئيسية">Home</a></li>
+      <li><a href="#about" data-en="About" data-ar="عني">About</a></li>
       <li><a href="#services" data-en="Services" data-ar="خدماتي">Services</a></li>
       <li><a href="#skills" data-en="Skills" data-ar="مهاراتي">Skills</a></li>
       <li><a href="#experience" data-en="Experience" data-ar="خبراتي">Experience</a></li>
@@ -57,12 +58,46 @@
       </div>
       <div class="term reveal visible" dir="ltr">
         <div class="term-bar"><i></i><i></i><i></i></div>
-        <div class="term-body"><span id="termText"></span><span class="term-cursor"></span></div>
+        <div class="term-body" id="termBody"><span id="termText"></span><div class="term-input-row" id="termRow"><span class="p">$</span><input id="termInput" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Terminal command input" placeholder="help"><span class="term-cursor"></span></div></div>
       </div>
     </div>
     <div class="hero-photo reveal visible">
       <div class="ring"></div>
       <img src="__PHOTO_B64__" alt="Eng. Gergs Magdy - مهندس جرجس مجدي" width="600" height="750" fetchpriority="high">
+    </div>
+  </div>
+</section>
+
+<section class="stats-strip" id="stats">
+  <div class="container stats reveal">
+    <div class="stat"><span class="stat-num" data-count="6" data-suffix="+">0+</span><span class="stat-label" data-en="Core Services" data-ar="خدمات أساسية">Core Services</span></div>
+    <div class="stat"><span class="stat-num" data-count="20" data-suffix="+">0+</span><span class="stat-label" data-en="Skills &amp; Tools" data-ar="مهارة وأداة">Skills &amp; Tools</span></div>
+    <div class="stat"><span class="stat-num" data-count="100" data-suffix="%">0%</span><span class="stat-label" data-en="Commitment" data-ar="التزام">Commitment</span></div>
+    <div class="stat"><span class="stat-num" data-count="24" data-suffix="/7">0/7</span><span class="stat-label" data-en="Support" data-ar="دعم متواصل">Support</span></div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <div class="sec-head reveal">
+      <h2 data-en="About Me" data-ar="نبذة عني">About Me</h2>
+      <p data-en="The developer behind the profile" data-ar="المطور وراء هذا الملف">The developer behind the profile</p>
+    </div>
+    <div class="code-window reveal" dir="ltr">
+      <div class="cw-bar"><i></i><i></i><i></i><span class="cw-tab">about-gergs.js</span></div>
+      <pre class="cw-body"><code><span class="c">// profile.js - who is Gergs?</span>
+<span class="k">const</span> <span class="v">gergs</span> <span class="p">=</span> {
+  <span class="v">name</span><span class="p">:</span> <span class="s">'Eng. Gergs Magdy'</span><span class="p">,</span>
+  <span class="v">title</span><span class="p">:</span> <span class="s">'IT Specialist &amp; Graphic Designer'</span><span class="p">,</span>
+  <span class="v">education</span><span class="p">:</span> <span class="s">'B.Sc. IT &amp; Education, Zagazig University'</span><span class="p">,</span>
+  <span class="v">skills</span><span class="p">:</span> [<span class="s">'IT Support'</span><span class="p">,</span> <span class="s">'Graphic Design'</span><span class="p">,</span>
+           <span class="s">'Data Entry'</span><span class="p">,</span> <span class="s">'Web &amp; Apps'</span><span class="p">],</span>
+  <span class="v">languages</span><span class="p">:</span> [<span class="s">'HTML'</span><span class="p">,</span> <span class="s">'CSS'</span><span class="p">,</span> <span class="s">'JavaScript'</span><span class="p">,</span> <span class="s">'Java'</span><span class="p">],</span>
+  <span class="v">availableForWork</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+  <span class="v">coffeePerDay</span><span class="p">:</span> <span class="n">Infinity</span>
+<span class="p">};</span>
+
+<span class="k">export default</span> <span class="v">gergs</span><span class="p">;</span></code></pre>
     </div>
   </div>
 </section>
@@ -260,6 +295,7 @@
     <svg class="gm-mark" viewBox="0 0 64 64" aria-hidden="true"><g transform="translate(-6,4) scale(1.32)" fill="none" stroke="url(#gmg)" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M27 14 L23.5 10.5 H14.5 L11 14 V30 L14.5 33.5 H23.5 L27 30 V25.5 H20"/><path d="M33 33.5 V13 L41 22 L49 13 V33.5"/><path d="M27 14 L33 8 H38"/></g><g transform="translate(-6,4) scale(1.32)" fill="url(#gmg)"><circle cx="38" cy="8" r="2.4"/><circle cx="20" cy="25.5" r="2.4"/><circle cx="33" cy="33.5" r="2.4"/><circle cx="49" cy="33.5" r="2.4"/></g></svg>
     <ul class="f-links">
       <li><a href="#home" data-en="Home" data-ar="الرئيسية">Home</a></li>
+      <li><a href="#about" data-en="About" data-ar="عني">About</a></li>
       <li><a href="#services" data-en="Services" data-ar="خدماتي">Services</a></li>
       <li><a href="#skills" data-en="Skills" data-ar="مهاراتي">Skills</a></li>
       <li><a href="#experience" data-en="Experience" data-ar="خبراتي">Experience</a></li>

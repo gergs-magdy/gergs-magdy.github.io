@@ -248,24 +248,75 @@ document.getElementById('contactForm').addEventListener('submit', function(e){
 document.getElementById('year').textContent = new Date().getFullYear();
 
 
-// Terminal typing card
+// Terminal typing card + interactive commands
+var TERM_CMDS = {
+  en: {
+    help: ['Available commands:',
+'  whoami      - who is Gergs',
+'  skills      - list top skills',
+'  services    - what I offer',
+'  education   - my degree',
+'  contact     - how to reach me',
+'  clear       - clear the terminal'],
+    whoami: ['> Eng. Gergs Magdy - IT Specialist & Graphic Designer'],
+    skills: ['> IT Support - Graphic Design - Data Entry - Web & Apps - HTML/CSS/JS/Java'],
+    services: ['> Tech Support - Web Development - Graphic Design - Data Entry - Office - Networks'],
+    education: ['> B.Sc. IT & Education, Faculty of Specific Education, Zagazig University (2024)'],
+    contact: ['> Use the Contact section below, or tap "WhatsApp Me" in the hero'],
+    unknown: ['> command not found. Type "help" for the list.']
+  },
+  ar: {
+    help: ['الأوامر المتاحة:',
+'  whoami      - من هو جرجس',
+'  skills      - أهم المهارات',
+'  services    - الخدمات',
+'  education   - المؤهل',
+'  contact     - التواصل',
+'  clear       - مسح الشاشة'],
+    whoami: ['> م. جرجس مجدي - أخصائي تكنولوجيا معلومات ومصمم جرافيك'],
+    skills: ['> دعم فني - تصميم جرافيك - إدخال بيانات - مواقع وتطبيقات - HTML/CSS/JS/Java'],
+    services: ['> دعم فني - تطوير مواقع - تصميم جرافيك - إدخال بيانات - أوفيس - شبكات'],
+    education: ['> بكالوريوس تكنولوجيا المعلومات والتعليم - جامعة الزقازيق (2024)'],
+    contact: ['> استخدم قسم "تواصل معي" بالأسفل أو زر "WhatsApp Me" في الأعلى'],
+    unknown: ['> أمر غير معروف. اكتب "help" لعرض القائمة.']
+  }
+};
 (function(){
   var el = document.getElementById('termText');
   if (!el) return;
+  var row = document.getElementById('termRow');
+  var input = document.getElementById('termInput');
   var lines = [
     {t:'$ whoami', c:1},
     {t:'> Eng. Gergs Magdy'},
     {t:'$ skills --list', c:1},
     {t:'> IT Support - Graphic Design - Data Entry - Web & Apps'},
     {t:'$ status', c:1},
-    {t:'> Available for new projects'}
+    {t:'> Available for new projects'},
+    {t:'$ _', c:1}
   ];
   var li = 0, ci = 0, out = '';
+  function done(){
+    if (!row || !input) return;
+    row.classList.add('on');
+    document.getElementById('termBody').addEventListener('click', function(){ input.focus(); });
+    input.addEventListener('keydown', function(e){
+      if (e.key !== 'Enter') return;
+      var cmd = input.value.trim().toLowerCase();
+      input.value = '';
+      if (!cmd) return;
+      if (cmd === 'clear'){ out = ''; el.innerHTML = ''; return; }
+      var dict = TERM_CMDS[LANG] || TERM_CMDS.en;
+      var resp = dict[cmd] || dict.unknown;
+      out += '<span class="p">$ ' + cmd + '</span><br>';
+      resp.forEach(function(l){ out += l + '<br>'; });
+      el.innerHTML = out;
+      var body = document.getElementById('termBody');
+      body.scrollTop = body.scrollHeight;
+    });
+  }
   function tick(){
-    if (li >= lines.length){
-      setTimeout(function(){ out=''; li=0; ci=0; el.innerHTML=''; tick(); }, 4500);
-      return;
-    }
+    if (li >= lines.length){ done(); return; }
     var L = lines[li];
     ci++;
     var part = L.t.slice(0, ci);
@@ -277,6 +328,29 @@ document.getElementById('year').textContent = new Date().getFullYear();
     } else setTimeout(tick, 32);
   }
   tick();
+})();
+
+// Stats count-up
+(function(){
+  var nums = document.querySelectorAll('.stat-num');
+  if (!nums.length) return;
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function run(el){
+    var target = +el.getAttribute('data-count'), suf = el.getAttribute('data-suffix') || '';
+    if (reduced){ el.textContent = target + suf; return; }
+    var start = Date.now();
+    var iv = setInterval(function(){
+      var p = Math.min((Date.now() - start) / 1400, 1);
+      el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))) + suf;
+      if (p >= 1) clearInterval(iv);
+    }, 40);
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (en.isIntersecting){ run(en.target); io.unobserve(en.target); }
+    });
+  }, {threshold: .5});
+  nums.forEach(function(n){ io.observe(n); });
 })();
 
 // Pointer-tracking glow on cards and skill tiles
