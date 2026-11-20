@@ -150,7 +150,7 @@ footer .gm-mark{width:44px;height:44px;margin:0 auto 12px}
 /* Skills groups */
 .skill-icons{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;max-width:980px;margin:0 auto 44px}
 .sk{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:22px 12px;text-align:center;font-size:.88rem;font-weight:600;box-shadow:var(--shadow);transition:transform .3s,border-color .3s}
-.sk:hover{transform:translateY(-5px);border-color:var(--primary)}
+.sk:hover{border-color:var(--primary);box-shadow:0 14px 30px rgba(15,23,42,.14)}
 .sk-ic{width:52px;height:52px;margin:0 auto 12px;border-radius:16px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,var(--primary),var(--secondary));box-shadow:0 6px 16px rgba(37,99,235,.35)}
 .sk-ic svg{width:26px;height:26px}
 .sk:nth-child(2) .sk-ic{background:linear-gradient(135deg,var(--secondary),var(--accent))}
@@ -220,6 +220,29 @@ footer .f-links a:hover{color:var(--primary)}
 
 /* Responsive */
 .gm-fav{display:none}
+
+/* tech motion */
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:44px 44px;opacity:.35;animation:gridmove 16s linear infinite}
+@keyframes gridmove{to{background-position:44px 44px}}
+.term{margin-top:24px;max-width:430px;background:#0d1424;border:1px solid #1e2b4a;border-radius:14px;box-shadow:0 14px 34px rgba(15,23,42,.35);overflow:hidden;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.8rem;direction:ltr;text-align:left}
+.term-bar{display:flex;gap:6px;padding:9px 12px;background:#111c33;border-bottom:1px solid #1e2b4a}
+.term-bar i{width:10px;height:10px;border-radius:50%;background:#f87171}
+.term-bar i:nth-child(2){background:#fbbf24}
+.term-bar i:nth-child(3){background:#34d399}
+.term-body{padding:14px 16px;color:#7dd3fc;min-height:112px;line-height:1.7}
+.term-body .p{color:#c4b5fd}
+.term-cursor{display:inline-block;width:8px;height:14px;background:#7dd3fc;vertical-align:-2px;animation:blink 1s steps(1) infinite}
+.card::before,.sk::before{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(220px circle at var(--mx,50%) var(--my,50%),rgba(124,58,237,.14),transparent 60%);opacity:0;transition:opacity .3s;pointer-events:none}
+.card:hover::before,.sk:hover::before{opacity:1}
+.sk{position:relative;overflow:hidden;animation:floaty 5s ease-in-out infinite}
+.sk:nth-child(2){animation-delay:.6s}
+.sk:nth-child(3){animation-delay:1.2s}
+.sk:nth-child(4){animation-delay:1.8s}
+.sk:nth-child(5){animation-delay:2.4s}
+.sk-ic{animation:pulse 2.6s infinite}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@media(max-width:640px){.term{max-width:100%}}
+@media (prefers-reduced-motion:reduce){.sk,.sk-ic,body::before{animation:none!important}}
 @media(max-width:960px){.skill-icons{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:640px){.skill-icons{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:860px){
@@ -292,6 +315,10 @@ footer .f-links a:hover{color:var(--primary)}
         <a class="in" href="https://www.linkedin.com/in/gergs-magdy-466655361" target="_blank" rel="noopener" aria-label="LinkedIn">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.55C0 23.23.79 24 1.77 24h20.45C23.2 24 24 23.23 24 22.28V1.72C24 .77 23.2 0 22.22 0z"/></svg>
         </a>
+      </div>
+      <div class="term reveal visible" dir="ltr">
+        <div class="term-bar"><i></i><i></i><i></i></div>
+        <div class="term-body"><span id="termText"></span><span class="term-cursor"></span></div>
       </div>
     </div>
     <div class="hero-photo reveal visible">
@@ -421,8 +448,8 @@ footer .f-links a:hover{color:var(--primary)}
       </div>
       <div class="t-item reveal">
         <span class="t-tag" data-en="Class of 2024" data-ar="دفعة 2024">Class of 2024</span>
-        <h3 data-en="Bachelor's Degree - Faculty of Specific Education" data-ar="بكالوريوس - كلية التربية النوعية">Bachelor's Degree - Faculty of Specific Education</h3>
-        <p data-en="Department of Information Technology & Education, Zagazig University." data-ar="قسم تكنولوجيا المعلومات والتعليم، جامعة الزقازيق.">Department of Information Technology & Education, Zagazig University.</p>
+        <h3 data-en="Bachelor's in IT &amp; Education - Faculty of Specific Education" data-ar="بكالوريوس تكنولوجيا المعلومات والتعليم - كلية التربية النوعية">Bachelor's in IT &amp; Education - Faculty of Specific Education</h3>
+        <p data-en="Zagazig University, Class of 2024." data-ar="جامعة الزقازيق، دفعة 2024.">Zagazig University, Class of 2024.</p>
       </div>
     </div>
   </div>
@@ -751,3 +778,43 @@ document.getElementById('year').textContent = new Date().getFullYear();
 </script>
 </body>
 </html>
+
+// Terminal typing card
+(function(){
+  var el = document.getElementById('termText');
+  if (!el) return;
+  var lines = [
+    {t:'$ whoami', c:1},
+    {t:'> Eng. Gergs Magdy'},
+    {t:'$ skills --list', c:1},
+    {t:'> IT Support - Graphic Design - Data Entry - Web & Apps'},
+    {t:'$ status', c:1},
+    {t:'> Available for new projects'}
+  ];
+  var li = 0, ci = 0, out = '';
+  function tick(){
+    if (li >= lines.length){
+      setTimeout(function(){ out=''; li=0; ci=0; el.innerHTML=''; tick(); }, 4500);
+      return;
+    }
+    var L = lines[li];
+    ci++;
+    var part = L.t.slice(0, ci);
+    el.innerHTML = out + (L.c ? '<span class="p">' + part + '</span>' : part);
+    if (ci >= L.t.length){
+      out += (L.c ? '<span class="p">' + L.t + '</span>' : L.t) + '<br>';
+      li++; ci = 0;
+      setTimeout(tick, 500);
+    } else setTimeout(tick, 32);
+  }
+  tick();
+})();
+
+// Pointer-tracking glow on cards and skill tiles
+document.querySelectorAll('.card,.sk').forEach(function(el){
+  el.addEventListener('pointermove', function(e){
+    var r = el.getBoundingClientRect();
+    el.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+    el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  });
+});
