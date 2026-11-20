@@ -280,10 +280,11 @@
           <input id="cf-name" type="text" required data-en-ph="Enter your name" data-ar-ph="اكتب اسمك" placeholder="Enter your name">
           <label for="cf-msg" data-en="Your Message" data-ar="رسالتك">Your Message</label>
           <textarea id="cf-msg" rows="4" required data-en-ph="How can I help you?" data-ar-ph="كيف أقدر أساعدك؟" placeholder="How can I help you?"></textarea>
-          <button class="btn btn-primary" type="submit">
+          <button class="btn btn-primary" type="submit" id="cf-btn">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
             <span data-en="Send Message" data-ar="إرسال الرسالة">Send Message</span>
           </button>
+          <p id="cf-status" class="cf-status" role="status" aria-live="polite"></p>
         </form>
       </div>
     </div>

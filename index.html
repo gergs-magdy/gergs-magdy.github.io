@@ -277,6 +277,9 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
   .hamburger{display:grid}
   section{padding:70px 0}
 }
+.cf-status{margin:10px 0 0;font-size:14px;min-height:20px;color:var(--text-light)}
+.cf-status.ok{color:#059669;font-weight:600}
+.cf-status.err{color:#d97706}
 </style>
 </head>
 <body>
@@ -561,10 +564,11 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
           <input id="cf-name" type="text" required data-en-ph="Enter your name" data-ar-ph="اكتب اسمك" placeholder="Enter your name">
           <label for="cf-msg" data-en="Your Message" data-ar="رسالتك">Your Message</label>
           <textarea id="cf-msg" rows="4" required data-en-ph="How can I help you?" data-ar-ph="كيف أقدر أساعدك؟" placeholder="How can I help you?"></textarea>
-          <button class="btn btn-primary" type="submit">
+          <button class="btn btn-primary" type="submit" id="cf-btn">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
             <span data-en="Send Message" data-ar="إرسال الرسالة">Send Message</span>
           </button>
+          <p id="cf-status" class="cf-status" role="status" aria-live="polite"></p>
         </form>
       </div>
     </div>
@@ -683,26 +687,43 @@ applyLang(LANG);
   top.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
 })();
 
-// Contact form: store (if backend set) + open WhatsApp with the message
+// Contact form: save to database first, show confirmation, then open WhatsApp
 document.getElementById('contactForm').addEventListener('submit', function(e){
   e.preventDefault();
+  var form = this;
   var name = document.getElementById('cf-name').value.trim();
   var msg = document.getElementById('cf-msg').value.trim();
   if (!name || !msg) return;
-  if (SUPA_URL && SUPA_KEY) {
-    try {
-      fetch(SUPA_URL, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json', 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY, 'Prefer': 'return=minimal'},
-        body: JSON.stringify({name: name, message: msg})
-      }).catch(function(){});
-    } catch (err) {}
+  var status = document.getElementById('cf-status');
+  var btn = document.getElementById('cf-btn');
+  btn.disabled = true;
+  status.className = 'cf-status';
+  status.textContent = LANG === 'ar' ? 'جاري الإرسال...' : 'Sending...';
+  function openWA(){
+    var text = (LANG === 'ar')
+      ? 'مرحباً، أنا ' + name + '.\n' + msg
+      : 'Hi, I am ' + name + '.\n' + msg;
+    window.open('https://wa.me/' + CONTACT_WA + '?text=' + encodeURIComponent(text), '_blank');
   }
-  var text = (LANG === 'ar')
-    ? 'مرحباً، أنا ' + name + '.\n' + msg
-    : 'Hi, I am ' + name + '.\n' + msg;
-  window.open('https://wa.me/' + CONTACT_WA + '?text=' + encodeURIComponent(text), '_blank');
-  this.reset();
+  fetch(SUPA_URL, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json', 'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY, 'Prefer': 'return=minimal'},
+    body: JSON.stringify({name: name, message: msg})
+  }).then(function(r){
+    if (r.ok) {
+      status.className = 'cf-status ok';
+      status.textContent = LANG === 'ar' ? 'تم استلام رسالتك بنجاح! هرد عليك في أقرب وقت ✅' : 'Message received successfully! I will reply soon ✅';
+      form.reset();
+    } else {
+      status.className = 'cf-status err';
+      status.textContent = LANG === 'ar' ? 'حصلت مشكلة في الحفظ، بفتحلك واتساب تبعت منه مباشرة' : 'Could not save, opening WhatsApp so you can send directly';
+    }
+    openWA();
+  }).catch(function(){
+    status.className = 'cf-status err';
+    status.textContent = LANG === 'ar' ? 'مفيش اتصال بالسيرفر، بفتحلك واتساب تبعت منه مباشرة' : 'No connection, opening WhatsApp so you can send directly';
+    openWA();
+  }).finally(function(){ btn.disabled = false; });
 });
 
 // Interactive particle background (hero) - lightweight, pauses off-screen
